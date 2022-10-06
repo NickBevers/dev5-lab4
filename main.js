@@ -1,6 +1,7 @@
 import "./style.css";
 import * as THREE from "three";
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 
 // Defining variables
@@ -9,6 +10,7 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.01, 1000 );
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 const loader = new GLTFLoader();
+const controls = new OrbitControls( camera, renderer.domElement );
 
 
 // Loading the model and adding it to the scene
@@ -42,8 +44,13 @@ ambientLight.position.set(2, 2, 5);
 scene.add(ambientLight);
 
 
-// Setting up the camera & renderer
+// Setting up the camera
 camera.position.set( 0, 0, 0.5 );
+controls.update();
+controls.autoRotate = true;
+
+
+// Setting up the renderer
 renderer.setSize( sizes.width, sizes.height );
 renderer.setPixelRatio( Math.min(window.devicePixelRatio, 2) );
 renderer.shadowMap.enabled = true;
@@ -51,8 +58,10 @@ renderer.gammaOutput = true;
 document.body.appendChild( renderer.domElement );
 renderer.render( scene, camera );
 
+// Animating the scene
 const animate = () => {
     requestAnimationFrame( animate );
+    controls.update();
     renderer.render( scene, camera );
 }
 
