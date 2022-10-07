@@ -10,13 +10,22 @@ const sizes = { width: window.innerWidth, height: window.innerHeight }
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.01, 1000 );
 const renderer = new THREE.WebGLRenderer({ antialias: true });
-const loader = new GLTFLoader();
 const controls = new OrbitControls( camera, renderer.domElement );
+const loader = new GLTFLoader();
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderConfig({ type: 'js' });
+// dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+dracoLoader.setDecoderPath( '/node_modules/three/examples/js/libs/draco/' );
+loader.setDRACOLoader(dracoLoader);
 
 
-// Loading the model and adding it to the scene
+// Setting up the loader options
+// loader.setDecoderPath( '/examples/js/libs/draco/' );
+
+
+//Loading the model and adding it to the scene
 loader.load(
-    "donut.glb",
+    "donut_compressed.glb",
 
     ( gltf ) => {
         const root = gltf.scene;
