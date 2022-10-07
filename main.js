@@ -14,13 +14,8 @@ const controls = new OrbitControls( camera, renderer.domElement );
 const loader = new GLTFLoader();
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderConfig({ type: 'js' });
-// dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
 dracoLoader.setDecoderPath( '/node_modules/three/examples/js/libs/draco/' );
 loader.setDRACOLoader(dracoLoader);
-
-
-// Setting up the loader options
-// loader.setDecoderPath( '/examples/js/libs/draco/' );
 
 
 //Loading the model and adding it to the scene
@@ -48,6 +43,25 @@ loader.load(
 );
 
 
+// Setting up the white cube for the logo of a customer
+const textures = [
+    new THREE.MeshBasicMaterial({ color: 0xffffff }),
+    new THREE.MeshBasicMaterial({ color: 0xffffff }),
+    new THREE.MeshBasicMaterial({ color: 0xffffff }),
+    new THREE.MeshBasicMaterial({ color: 0xffffff }),
+    new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('./donuttello-logo.png') }),
+    new THREE.MeshBasicMaterial({ color: 0xffffff }),
+];
+
+
+const cubeGeometry = new THREE.BoxGeometry( 1, 1, 1 );
+const cube = new THREE.Mesh( cubeGeometry, textures );
+cube.position.set(0, 0.068, -0.045);
+cube.rotation.set(2.007, 3.14, 3.14);
+cube.scale.set(0.05, 0.03, 0.001);
+scene.add( cube );
+
+
 // Setting up the lights
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
 ambientLight.position.set(2, 2, 5);
@@ -67,6 +81,7 @@ renderer.shadowMap.enabled = true;
 renderer.gammaOutput = true;
 document.body.appendChild( renderer.domElement );
 renderer.render( scene, camera );
+
 
 // Animating the scene
 const animate = () => {
