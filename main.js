@@ -22,7 +22,7 @@ const logoTexture = [
     new THREE.MeshBasicMaterial({ color: 0xffffff }),
     new THREE.MeshBasicMaterial({ color: 0xffffff }),
     new THREE.MeshBasicMaterial({ color: 0xffffff }),
-    new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('./donuttello-logo.png') }),
+    new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('/donuttello-logo.png') }),
     new THREE.MeshBasicMaterial({ color: 0xffffff }),
 ];
 
@@ -31,7 +31,7 @@ const logoTexture = [
 const loadDonut = (position = [0, 0, 0], scale = [1, 1, 1], colors = false) => {
     // Load the donut model
     loader.load(
-        "donut_compressed.glb",
+        "/donut_compressed.glb",
 
         ( gltf ) => {
             const root = gltf.scene;
