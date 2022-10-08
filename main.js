@@ -3,6 +3,8 @@ import * as THREE from "three";
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+import donutModel from "./donut_compressed.glb";
+import donutLogo from "./donuttello-logo.png";
 
 
 // Defining variables
@@ -14,7 +16,8 @@ const controls = new OrbitControls( camera, renderer.domElement );
 const loader = new GLTFLoader();
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderConfig({ type: 'js' });
-dracoLoader.setDecoderPath( '/node_modules/three/examples/js/libs/draco/' );
+dracoLoader.setDecoderPath( 'https://www.gstatic.com/draco/v1/decoders/' );
+// dracoLoader.setDecoderPath( '/node_modules/three/examples/js/libs/draco/' );
 loader.setDRACOLoader(dracoLoader);
 
 const logoTexture = [
@@ -22,7 +25,7 @@ const logoTexture = [
     new THREE.MeshBasicMaterial({ color: 0xffffff }),
     new THREE.MeshBasicMaterial({ color: 0xffffff }),
     new THREE.MeshBasicMaterial({ color: 0xffffff }),
-    new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('/donuttello-logo.png') }),
+    new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(donutLogo) }),
     new THREE.MeshBasicMaterial({ color: 0xffffff }),
 ];
 
@@ -31,7 +34,7 @@ const logoTexture = [
 const loadDonut = (position = [0, 0, 0], scale = [1, 1, 1], colors = false) => {
     // Load the donut model
     loader.load(
-        "/donut_compressed.glb",
+        donutModel,
 
         ( gltf ) => {
             const root = gltf.scene;
